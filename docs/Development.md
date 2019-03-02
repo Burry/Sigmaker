@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You will need to set the environment variable `FONT_AWESOME_TOKEN` to a valid [Font Awesome Pro](https://fontawesome.com/pro) npm token or replace all references to the package `@fortawesome/pro-solid-svg-icons` with `@fortawesome/pro-free-svg-icons` in order for `yarn install` to succeed.
+
 ## Available Scripts
 
 In the project directory, you can run:
