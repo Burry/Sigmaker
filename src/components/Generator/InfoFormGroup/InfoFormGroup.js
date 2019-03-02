@@ -1,18 +1,17 @@
 import React from 'react';
 import {
     string,
+    shape,
     oneOfType,
-    object,
-    array,
     arrayOf,
     func,
     bool,
     node
 } from 'prop-types';
+import classNames from 'classnames';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoInput from '../InfoInput';
 
 const AddOn = ({ type, children }) => {
@@ -35,20 +34,25 @@ AddOn.defaultProps = {
 
 const InfoFormGroup = ({
     name,
-    icon,
-    value,
     type,
-    onChange,
-    autoFocus,
+    value,
+    enabled,
+    handlers: { onCheck, onChange },
     append,
     prepend,
     ...props
 }) => (
     <Form.Group as={Form.Row} controlId={name}>
-        <Form.Label column sm={4}>
-            <FontAwesomeIcon icon={icon} fixedWidth className="mr-2" />
-            {name.charAt(0).toUpperCase() + name.slice(1)}
-        </Form.Label>
+        <Col sm={3} className={classNames('d-flex', 'align-items-center')}>
+            <Form.Check
+                custom
+                checked={enabled}
+                type="checkbox"
+                id={`${name}-checkbox`}
+                label={name.charAt(0).toUpperCase() + name.slice(1)}
+                onChange={onCheck}
+            />
+        </Col>
         <Col>
             <InputGroup>
                 <AddOn type="Prepend">{prepend}</AddOn>
@@ -56,7 +60,7 @@ const InfoFormGroup = ({
                 <InfoInput
                     name={name}
                     value={value}
-                    autoFocus={autoFocus}
+                    disabled={!enabled}
                     onChange={onChange}
                     {...props}
                 />
@@ -68,18 +72,19 @@ const InfoFormGroup = ({
 
 InfoFormGroup.propTypes = {
     name: string.isRequired,
-    icon: oneOfType([object, array, string]).isRequired,
-    value: string.isRequired,
     type: string,
-    onChange: func.isRequired,
-    autoFocus: bool,
+    value: string.isRequired,
+    enabled: bool.isRequired,
+    handlers: shape({
+        onCheck: func.isRequired,
+        onChange: func.isRequired
+    }).isRequired,
     append: node,
     prepend: node
 };
 
 InfoFormGroup.defaultProps = {
     type: 'text',
-    autoFocus: false,
     append: null,
     prepend: null
 };

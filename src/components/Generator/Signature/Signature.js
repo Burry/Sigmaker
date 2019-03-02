@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, oneOfType, node, arrayOf } from 'prop-types';
+import { shape, string, bool, oneOfType, node, arrayOf } from 'prop-types';
 import placeholders from '../placeholders';
 
 const lineHeight = 1.5;
@@ -38,11 +38,12 @@ const Signature = ({ contact }) => {
         phone: _phone,
         phoneUri
     } = Object.keys(contact).reduce((acc, key) => {
-        acc[key] = contact[key] === '' ? placeholders[key] : contact[key];
+        const { enabled, value } = contact[key];
+        if (enabled) acc[key] = value === '' ? placeholders[key] : value;
         return acc;
     }, {});
 
-    const phone = `+1 ${_phone}`;
+    const phone = _phone && `+1 ${_phone}`;
 
     return (
         <>
@@ -90,33 +91,53 @@ const Signature = ({ contact }) => {
                                     >
                                         {firstName} {lastName}
                                     </b>
-                                    <br />
-                                    <span style={{ lineHeight }}>{role}</span>
-                                    <br />
-                                    <Link
-                                        href={`mailto:${email}`}
-                                        style={{
-                                            fontSize: '80%'
-                                        }}
-                                    >
-                                        {email}
-                                    </Link>{' '}
-                                    <span
-                                        style={{
-                                            fontSize: '80%',
-                                            color: 'rgba(0,0,0,0.1)'
-                                        }}
-                                    >
-                                        |
-                                    </span>{' '}
-                                    <Link
-                                        href={phoneUri}
-                                        style={{
-                                            fontSize: '80%'
-                                        }}
-                                    >
-                                        {phone}
-                                    </Link>
+                                    {role && (
+                                        <>
+                                            <br />
+                                            <span style={{ lineHeight }}>
+                                                {role}
+                                            </span>
+                                        </>
+                                    )}
+                                    {(phone || email) && (
+                                        <>
+                                            <br />
+                                            {email && (
+                                                <Link
+                                                    href={`mailto:${email}`}
+                                                    style={{
+                                                        fontSize: '80%'
+                                                    }}
+                                                >
+                                                    {email}
+                                                </Link>
+                                            )}
+                                            {email && phone && (
+                                                <>
+                                                    {' '}
+                                                    <span
+                                                        style={{
+                                                            fontSize: '80%',
+                                                            color:
+                                                                'rgba(0,0,0,0.1)'
+                                                        }}
+                                                    >
+                                                        |
+                                                    </span>{' '}
+                                                </>
+                                            )}
+                                            {phone && (
+                                                <Link
+                                                    href={phoneUri}
+                                                    style={{
+                                                        fontSize: '80%'
+                                                    }}
+                                                >
+                                                    {phone}
+                                                </Link>
+                                            )}
+                                        </>
+                                    )}
                                 </td>
                             </tr>
                         </tbody>
@@ -129,12 +150,18 @@ const Signature = ({ contact }) => {
 
 Signature.propTypes = {
     contact: shape({
-        firstName: string.isRequired,
-        lastName: string.isRequired,
-        role: string.isRequired,
-        email: string.isRequired,
-        phone: string.isRequired,
-        phoneUri: string.isRequired
+        firstName: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired,
+        lastName: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired,
+        role: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired,
+        email: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired,
+        phone: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired,
+        phoneUri: shape({ enabled: bool.isRequired, value: string.isRequired })
+            .isRequired
     }).isRequired
 };
 

@@ -11,7 +11,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faUser,
     faUserTag,
     faEnvelope,
     faPhone,
@@ -33,19 +32,22 @@ const Generator = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [role, setRole] = useState('');
+    const [roleEnabled, setRoleEnabled] = useState(true);
     const [email, setEmail] = useState('');
+    const [emailEnabled, setEmailEnabled] = useState(true);
     const [phone, setPhone] = useState('');
+    const [phoneEnabled, setPhoneEnabled] = useState(true);
     const [copied, setCopied] = useState(false);
 
     const ConnectedSignature = (
         <Signature
             contact={{
-                firstName,
-                lastName,
-                role,
-                email,
-                phone,
-                phoneUri: phoneUri(phone)
+                firstName: { enabled: true, value: firstName },
+                lastName: { enabled: true, value: lastName },
+                role: { enabled: roleEnabled, value: role },
+                email: { enabled: emailEnabled, value: email },
+                phone: { enabled: phoneEnabled, value: phone },
+                phoneUri: { enabled: true, value: phoneUri(phone) }
             }}
         />
     );
@@ -78,15 +80,10 @@ const Generator = () => {
                     <Col md={{ size: 6 }} lg={{ size: 5 }}>
                         <h1>Contact Information</h1>
                         <Form.Group as={Form.Row} controlId="firstName">
-                            <Form.Label column sm={4}>
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    fixedWidth
-                                    className="mr-2"
-                                />
+                            <Form.Label column sm={3}>
                                 Name
                             </Form.Label>
-                            <Col xs={6} sm={4} className="pr-2">
+                            <Col className="pr-2">
                                 <InfoInput
                                     name="firstName"
                                     id="firstName"
@@ -95,7 +92,7 @@ const Generator = () => {
                                     onChange={handleChangeFirstName}
                                 />
                             </Col>
-                            <Col xs={6} sm={4} className="pl-2">
+                            <Col className="pl-2">
                                 <InfoInput
                                     name="lastName"
                                     id="lastName"
@@ -108,20 +105,32 @@ const Generator = () => {
                             name="role"
                             icon={faUserTag}
                             value={role}
-                            onChange={handleChangeRole}
+                            enabled={roleEnabled}
+                            handlers={{
+                                onCheck: () => setRoleEnabled(!roleEnabled),
+                                onChange: handleChangeRole
+                            }}
                         />
                         <InfoFormGroup
                             name="email"
                             icon={faEnvelope}
                             value={email}
-                            onChange={handleChangeEmail}
+                            enabled={emailEnabled}
+                            handlers={{
+                                onCheck: () => setEmailEnabled(!emailEnabled),
+                                onChange: handleChangeEmail
+                            }}
                         />
                         <InfoFormGroup
                             name="phone"
                             icon={faPhone}
                             value={phone}
                             type="tel"
-                            onChange={handleChangePhone}
+                            enabled={phoneEnabled}
+                            handlers={{
+                                onCheck: () => setPhoneEnabled(!phoneEnabled),
+                                onChange: handleChangePhone
+                            }}
                             prepend="US"
                         />
                     </Col>

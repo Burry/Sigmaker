@@ -3,16 +3,8 @@ import { string, func, bool } from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import placeholders from '../placeholders';
 
-const InfoInput = ({ name, type, onChange, autoFocus, ...props }) => (
-    <Form.Control
-        type={type}
-        name={name}
-        placeholder={placeholders[name]}
-        autoFocus={autoFocus}
-        required
-        onChange={onChange}
-        {...props}
-    />
+const InfoInput = ({ name, ...props }) => (
+    <Form.Control placeholder={placeholders[name]} required {...props} />
 );
 
 InfoInput.propTypes = {
