@@ -1,0 +1,22 @@
+# AWS Amplify Console app build settings
+version: 1.0
+backend:
+    phases:
+        build:
+            commands:
+                - amplifyPush --environment $USER_BRANCH --simple
+frontend:
+    phases:
+        preBuild:
+            commands:
+                - yarn install
+        build:
+            commands:
+                - yarn run build
+    artifacts:
+        baseDirectory: build
+        files:
+            - '**/*'
+    cache:
+        paths:
+            - node_modules/**/*
