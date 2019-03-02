@@ -2,10 +2,10 @@ import React from 'react';
 import {
     string,
     shape,
+    bool,
     oneOfType,
     arrayOf,
     func,
-    bool,
     node
 } from 'prop-types';
 import classNames from 'classnames';
@@ -34,57 +34,73 @@ AddOn.defaultProps = {
 
 const InfoFormGroup = ({
     name,
-    type,
-    value,
-    enabled,
-    handlers: { onCheck, onChange },
+    input,
+    onChange,
+    required,
+    disabled,
+    customInput: CustomInput,
     append,
     prepend,
     ...props
-}) => (
-    <Form.Group as={Form.Row} controlId={name}>
-        <Col sm={3} className={classNames('d-flex', 'align-items-center')}>
-            <Form.Check
-                custom
-                checked={enabled}
-                type="checkbox"
-                id={`${name}-checkbox`}
-                label={name.charAt(0).toUpperCase() + name.slice(1)}
-                onChange={onCheck}
-            />
-        </Col>
-        <Col>
-            <InputGroup>
-                <AddOn type="Prepend">{prepend}</AddOn>
-                {prepend && <InputGroup.Prepend />}
-                <InfoInput
-                    name={name}
-                    value={value}
-                    disabled={!enabled}
-                    onChange={onChange}
-                    {...props}
-                />
-                <AddOn type="Append">{append}</AddOn>
-            </InputGroup>
-        </Col>
-    </Form.Group>
-);
+}) => {
+    const normalizedName = name
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, str => str.toUpperCase());
+    const inputProps = { name, input, onChange, required, disabled, ...props };
+    return (
+        <Form.Group as={Form.Row} controlId={name}>
+            {required || disabled ? (
+                <Form.Label column sm={3} lg={4}>
+                    <span className="pl-sm-4">{normalizedName}</span>
+                </Form.Label>
+            ) : (
+                <Col
+                    sm={3}
+                    lg={4}
+                    className={classNames('d-flex', 'align-items-center')}
+                >
+                    <Form.Check
+                        custom
+                        checked={input.enabled}
+                        type="checkbox"
+                        name={name}
+                        id={`${name}-checkbox`}
+                        aria-label={`Enable ${name}`}
+                        label={normalizedName}
+                        onChange={onChange}
+                    />
+                </Col>
+            )}
+            <Col>
+                {CustomInput ? (
+                    <CustomInput {...inputProps} />
+                ) : (
+                    <InputGroup>
+                        <AddOn type="Prepend">{prepend}</AddOn>
+                        <InfoInput {...inputProps} />
+                        <AddOn type="Append">{append}</AddOn>
+                    </InputGroup>
+                )}
+            </Col>
+        </Form.Group>
+    );
+};
 
 InfoFormGroup.propTypes = {
     name: string.isRequired,
-    type: string,
-    value: string.isRequired,
-    enabled: bool.isRequired,
-    handlers: shape({
-        onCheck: func.isRequired,
-        onChange: func.isRequired
-    }).isRequired,
-    append: node,
-    prepend: node
+    input: shape({}).isRequired,
+    onChange: func.isRequired,
+    required: bool,
+    disabled: bool,
+    customInput: oneOfType([node, arrayOf(node), func]),
+    append: oneOfType([node, arrayOf(node), func]),
+    prepend: oneOfType([node, arrayOf(node), func])
 };
 
 InfoFormGroup.defaultProps = {
-    type: 'text',
+    required: false,
+    disabled: false,
+    customInput: null,
     append: null,
     prepend: null
 };

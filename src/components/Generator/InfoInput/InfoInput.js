@@ -1,23 +1,34 @@
 import React from 'react';
-import { string, func, bool } from 'prop-types';
+import { shape, string, bool, oneOfType, node, arrayOf } from 'prop-types';
 import Form from 'react-bootstrap/Form';
-import placeholders from '../placeholders';
 
-const InfoInput = ({ name, ...props }) => (
-    <Form.Control placeholder={placeholders[name]} required {...props} />
+const InfoInput = ({
+    input: { enabled, value, placeholder },
+    disabled,
+    children,
+    ...props
+}) => (
+    <Form.Control
+        value={value}
+        placeholder={placeholder}
+        disabled={disabled || !enabled}
+        {...props}
+    >
+        {children}
+    </Form.Control>
 );
 
 InfoInput.propTypes = {
-    name: string.isRequired,
-    value: string.isRequired,
+    input: shape({}).isRequired,
     type: string,
-    onChange: func.isRequired,
-    autoFocus: bool
+    disabled: bool,
+    children: oneOfType([node, arrayOf(node)])
 };
 
 InfoInput.defaultProps = {
     type: 'text',
-    autoFocus: false
+    disabled: false,
+    children: null
 };
 
 export default InfoInput;

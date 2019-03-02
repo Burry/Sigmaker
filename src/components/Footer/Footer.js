@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Container from 'react-bootstrap/Container';
+import packageInfo from '../../../package.json';
 
 const Footer = () => (
     <Container
@@ -21,6 +22,8 @@ const Footer = () => (
         ) : (
             'All rights reserved'
         )}
+        <br />
+        Version {packageInfo.version}
     </Container>
 );
 

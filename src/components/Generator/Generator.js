@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import classNames from 'classnames';
+import { Analytics } from 'aws-amplify';
 import PhoneNumber from 'awesome-phonenumber';
+import { Panel as ColorPicker } from 'rc-color-picker';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,131 +12,224 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faUserTag,
-    faEnvelope,
-    faPhone,
-    faCheck,
-    faClipboard
-} from '@fortawesome/pro-solid-svg-icons';
+import { faCheck, faClipboard } from '@fortawesome/pro-solid-svg-icons';
+import InputSection from './InputSection';
 import InfoInput from './InfoInput';
 import InfoFormGroup from './InfoFormGroup';
-import Signature, { signatureHeader } from './Signature';
+import Signature, { signatureHeaderAndDoctype } from './Signature';
+import inputDefaults from './inputDefaults';
+import './color-picker.scss';
 import styles from './Generator.module.scss';
 
-const newPhoneNumber = value => new PhoneNumber(value, 'US');
 const phoneNumber = value =>
-    newPhoneNumber(value).getNumber('national') || value;
-const phoneUri = value =>
-    newPhoneNumber(value).getNumber('rfc3966') || `tel:${value}`;
+    new PhoneNumber(value, 'US').getNumber('national') || value;
 
 const Generator = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [role, setRole] = useState('');
-    const [roleEnabled, setRoleEnabled] = useState(true);
-    const [email, setEmail] = useState('');
-    const [emailEnabled, setEmailEnabled] = useState(true);
-    const [phone, setPhone] = useState('');
-    const [phoneEnabled, setPhoneEnabled] = useState(true);
     const [copied, setCopied] = useState(false);
+    const [inputs, setInputs] = useState(inputDefaults);
 
-    const ConnectedSignature = (
-        <Signature
-            contact={{
-                firstName: { enabled: true, value: firstName },
-                lastName: { enabled: true, value: lastName },
-                role: { enabled: roleEnabled, value: role },
-                email: { enabled: emailEnabled, value: email },
-                phone: { enabled: phoneEnabled, value: phone },
-                phoneUri: { enabled: true, value: phoneUri(phone) }
-            }}
-        />
-    );
+    const ConnectedSignature = <Signature inputs={inputs} />;
 
     const signatureString =
-        signatureHeader + renderToStaticMarkup(ConnectedSignature);
+        signatureHeaderAndDoctype + renderToStaticMarkup(ConnectedSignature);
 
-    const handleChange = setState => ({ target: { value } }) => {
-        setState(value);
+    const inputReducer = ({ name, type, value, checked: enabled }) => ({
+        ...inputs,
+        [name]: {
+            ...inputs[name],
+            ...(type === 'checkbox' ? { enabled } : { value, enabled: true })
+        }
+    });
+
+    const enableAssociatedInputReducer = (name, type, enabled) => ({
+        [name]: {
+            ...inputs[name],
+            ...(type === 'checkbox' ? { enabled } : {})
+        }
+    });
+
+    const handleChange = ({ target }) => {
+        setInputs(inputReducer(target));
         setCopied(false);
     };
-    const handleChangeFirstName = handleChange(setFirstName);
-    const handleChangeLastName = handleChange(setLastName);
-    const handleChangeRole = handleChange(setRole);
-    const handleChangeEmail = handleChange(setEmail);
-    const handleChangePhone = ({ target: { value } }) => {
-        setPhone(phoneNumber(value));
-        setCopied(false);
+
+    const handleChangePhone = event => {
+        const phoneEvent = event;
+        phoneEvent.target.value = phoneNumber(phoneEvent.target.value);
+        handleChange(phoneEvent);
     };
+
+    const handleChangeImage = ({ target }) => {
+        const { type, checked: enabled } = target;
+        setInputs({
+            ...inputReducer(target),
+            ...enableAssociatedInputReducer('imageSize', type, enabled),
+            ...enableAssociatedInputReducer('borderRadius', type, enabled)
+        });
+    };
+
+    const handleChangeColor = ({ color, target }) => {
+        if (color)
+            handleChange({
+                target: {
+                    name: 'linkColor',
+                    value: color
+                }
+            });
+        else if (target) handleChange({ target });
+    };
+
+    const handleCheckbox = ({ target: { name, checked } }) =>
+        setInputs({
+            ...inputs,
+            [name]: { ...inputs[name], value: checked }
+        });
 
     const handleCopied = event => {
         if (event.preventDefault) event.preventDefault();
         setCopied(true);
+        Analytics.record('copied-signature');
     };
 
     return (
         <Container className={classNames('mt-4', 'mb-5')}>
             <Form onSubmit={handleCopied}>
                 <Row>
-                    <Col md={{ size: 6 }} lg={{ size: 5 }}>
-                        <h1>Contact Information</h1>
-                        <Form.Group as={Form.Row} controlId="firstName">
-                            <Form.Label column sm={3}>
-                                Name
-                            </Form.Label>
-                            <Col className="pr-2">
-                                <InfoInput
-                                    name="firstName"
-                                    id="firstName"
-                                    value={firstName}
-                                    autoFocus
-                                    onChange={handleChangeFirstName}
+                    <Col lg={6} xl={5}>
+                        <h1>Settings</h1>
+                        <div className="accordion">
+                            <InputSection title="Personal Info">
+                                <Form.Group as={Form.Row} controlId="firstName">
+                                    <Form.Label column sm={3} lg={4}>
+                                        <span className="pl-sm-4">Name</span>
+                                    </Form.Label>
+                                    {['firstName', 'lastName'].map(name => (
+                                        <Col
+                                            key={name}
+                                            className={`p${
+                                                name === 'firstName' ? 'r' : 'l'
+                                            }-2`}
+                                        >
+                                            <InfoInput
+                                                name={name}
+                                                input={inputs[name]}
+                                                autoFocus={name === 'firstName'}
+                                                required
+                                                onChange={handleChange}
+                                            />
+                                        </Col>
+                                    ))}
+                                </Form.Group>
+                                <InfoFormGroup
+                                    name="email"
+                                    input={inputs.email}
+                                    onChange={handleChange}
                                 />
-                            </Col>
-                            <Col className="pl-2">
-                                <InfoInput
-                                    name="lastName"
-                                    id="lastName"
-                                    value={lastName}
-                                    onChange={handleChangeLastName}
+                                <InfoFormGroup
+                                    name="phone"
+                                    type="tel"
+                                    input={inputs.phone}
+                                    onChange={handleChangePhone}
+                                    prepend="US"
                                 />
-                            </Col>
-                        </Form.Group>
-                        <InfoFormGroup
-                            name="role"
-                            icon={faUserTag}
-                            value={role}
-                            enabled={roleEnabled}
-                            handlers={{
-                                onCheck: () => setRoleEnabled(!roleEnabled),
-                                onChange: handleChangeRole
-                            }}
-                        />
-                        <InfoFormGroup
-                            name="email"
-                            icon={faEnvelope}
-                            value={email}
-                            enabled={emailEnabled}
-                            handlers={{
-                                onCheck: () => setEmailEnabled(!emailEnabled),
-                                onChange: handleChangeEmail
-                            }}
-                        />
-                        <InfoFormGroup
-                            name="phone"
-                            icon={faPhone}
-                            value={phone}
-                            type="tel"
-                            enabled={phoneEnabled}
-                            handlers={{
-                                onCheck: () => setPhoneEnabled(!phoneEnabled),
-                                onChange: handleChangePhone
-                            }}
-                            prepend="US"
-                        />
+                            </InputSection>
+                            <InputSection title="Links">
+                                <InfoFormGroup
+                                    name="site"
+                                    type="url"
+                                    input={inputs.site}
+                                    onChange={handleChange}
+                                />
+                            </InputSection>
+                            <InputSection title="Image" collapse>
+                                <InfoFormGroup
+                                    name="image"
+                                    input={inputs.image}
+                                    onChange={handleChangeImage}
+                                />
+                                <InfoFormGroup
+                                    name="imageSize"
+                                    type="number"
+                                    input={inputs.imageSize}
+                                    onChange={handleChange}
+                                    required={inputs.imageSize.enabled}
+                                    disabled={!inputs.imageSize.enabled}
+                                    append="px"
+                                />
+                                <InfoFormGroup
+                                    name="borderRadius"
+                                    type="number"
+                                    input={inputs.borderRadius}
+                                    onChange={handleChange}
+                                    required={inputs.borderRadius.enabled}
+                                    disabled={!inputs.borderRadius.enabled}
+                                    append="px"
+                                />
+                            </InputSection>
+                            <InputSection title="Company" collapse>
+                                {['role', 'company'].map(name => (
+                                    <InfoFormGroup
+                                        key={name}
+                                        name={name}
+                                        input={inputs[name]}
+                                        onChange={handleChange}
+                                    />
+                                ))}
+                                <InfoFormGroup
+                                    name="companySite"
+                                    type="url"
+                                    input={inputs.companySite}
+                                    onChange={handleChange}
+                                />
+                            </InputSection>
+                            <InputSection title="Customize" collapse>
+                                <InfoFormGroup
+                                    name="salutation"
+                                    as="select"
+                                    type="select"
+                                    input={inputs.salutation}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    {inputs.salutation.options.map(option => (
+                                        <option key={option}>{option}</option>
+                                    ))}
+                                </InfoFormGroup>
+                                <Form.Group>
+                                    <Form.Check
+                                        custom
+                                        checked={inputs.showLine.value}
+                                        type="checkbox"
+                                        name="showLine"
+                                        id="showLine-checkbox"
+                                        aria-label="Enable line"
+                                        label="Show line"
+                                        onChange={handleCheckbox}
+                                    />
+                                </Form.Group>
+                                <InfoFormGroup
+                                    name="linkColor"
+                                    input={inputs.linkColor}
+                                    color={
+                                        inputs.linkColor.value ||
+                                        inputs.linkColor.placeholder
+                                    }
+                                    onChange={handleChangeColor}
+                                    customInput={props => (
+                                        <ColorPicker
+                                            enableAlpha={false}
+                                            {...props}
+                                        />
+                                    )}
+                                />
+                            </InputSection>
+                        </div>
                     </Col>
-                    <Col md={{ size: 6 }} lg={{ size: 7 }}>
+                    <Col
+                        lg={6}
+                        xl={7}
+                        className={classNames('mt-4', 'mt-lg-0')}
+                    >
                         <h1>Preview</h1>
                         <Card
                             body
@@ -171,8 +266,7 @@ const Generator = () => {
                         <Card
                             as="pre"
                             body
-                            bg="secondary"
-                            border="secondary"
+                            bg="light"
                             className={classNames(
                                 styles.code,
                                 'mb-0',

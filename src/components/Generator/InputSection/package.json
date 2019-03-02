@@ -1,0 +1,6 @@
+{
+    "name": "InputSection",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./InputSection.js"
+}
