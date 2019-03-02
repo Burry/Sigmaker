@@ -174,7 +174,7 @@ $body-color:                $gray-900;
 // Style anchor elements.
 
 $link-color:                              theme-color("primary");
-$link-decoration:                         none;
+$link-decoration:                         underline;
 $link-hover-color:                        darken($link-color, 15%);
 $link-hover-decoration:                   underline;
 // Darken percentage for links with `.text-*` class (e.g. `.text-success`)

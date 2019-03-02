@@ -79,7 +79,6 @@ const Signature = ({ inputs }) => {
             href={href}
             style={{
                 color: linkColor || '#0000ee',
-                textDecoration: 'underline',
                 lineHeight,
                 ...style
             }}

@@ -17,7 +17,7 @@ const App = () => (
                 titleTemplate={`${process.env.REACT_APP_TITLE} » %s`}
             />
             <Switch>
-                <Route path="/" component={Generator} />
+                <Route path="/" exact component={Generator} />
                 <Route component={NotFound} />
             </Switch>
             <Footer />

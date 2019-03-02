@@ -22,10 +22,8 @@ const NotFound = () => (
                     className="mb-4 text-muted"
                 />
                 <h1>Oops!</h1>
-                <p className="lead mb-4">
-                    Looks like this page doesn&apos;t exist.
-                </p>
-                <Button as={Link} to="/" variant="primary">
+                <p className="mb-4">We couldn&apos;t find this page.</p>
+                <Button as={Link} to="/" variant="primary" type={null}>
                     Go Home
                 </Button>
             </Col>
