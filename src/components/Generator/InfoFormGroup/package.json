@@ -1,0 +1,6 @@
+{
+    "name": "InfoFormGroup",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./InfoFormGroup.js"
+}

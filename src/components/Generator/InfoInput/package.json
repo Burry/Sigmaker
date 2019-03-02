@@ -1,0 +1,6 @@
+{
+    "name": "InfoInput",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./InfoInput.js"
+}

@@ -1,0 +1,39 @@
+# Compiled Output
+build
+dist
+
+# Testing
+/coverage
+/analysis
+
+# NPM Dependencies
+node_modules
+
+# NPM & Yarn Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Private Environment Variables
+.env.local
+.env.development
+.env.test
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor Workspace Config
+.vscode
+
+# Misc
+.DS_Store
+.temp
+
+# AWS Amplify
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/backend/amplify-meta.json
+amplify/backend/awscloudformation
+aws-exports.js
+awsconfiguration.json

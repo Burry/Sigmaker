@@ -1,0 +1,6 @@
+{
+    "name": "Generator",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./Generator.js"
+}

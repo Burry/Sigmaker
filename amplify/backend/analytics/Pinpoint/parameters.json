@@ -1,0 +1,20 @@
+{
+    "appName": "Sigmaker",
+    "roleName": "pinpointLambdaRole741d6608",
+    "cloudWatchPolicyName": "cloudWatchPolicy741d6608",
+    "pinpointPolicyName": "pinpointPolicy741d6608",
+    "authPolicyName": "pinpoint_amplify_741d6608",
+    "unauthPolicyName": "pinpoint_amplify_741d6608",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

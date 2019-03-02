@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Webpack will replace environment variables formatted like %PUBLIC_URL% during the build. -->
+
+    <head>
+        <meta charset="utf-8" />
+
+        <title>%REACT_APP_TITLE%</title>
+
+        <meta name="description" content="%REACT_APP_DESCRIPTION%" />
+
+        <!-- PWA Meta Tags -->
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="application-name" content="%REACT_APP_TITLE%" />
+        <meta name="apple-mobile-web-app-title" content="%REACT_APP_TITLE%" />
+        <meta name="theme-color" content="#%REACT_APP_THEME_COLOR%" />
+        <meta
+            name="msapplication-TileColor"
+            content="#%REACT_APP_THEME_COLOR%"
+        />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="%REACT_APP_TITLE%" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="%REACT_APP_DESCRIPTION%" />
+        <meta property="og:url" content="%PUBLIC_URL%" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image" content="%PUBLIC_URL%/open-graph.png" />
+        <meta property="og:image:alt" content="%REACT_APP_DESCRIPTION%" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="%REACT_APP_TITLE%" />
+        <meta name="twitter:description" content="%REACT_APP_DESCRIPTION%" />
+        <meta name="twitter:image" content="%PUBLIC_URL%/open-graph.png" />
+        <meta name="twitter:image:alt" content="%REACT_APP_DESCRIPTION%" />
+
+        <!-- App Manifest -->
+        <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest" />
+
+        <!-- Favicons -->
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="%PUBLIC_URL%/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="%PUBLIC_URL%/favicon-16x16.png"
+        />
+
+        <!-- Apple Icons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="%PUBLIC_URL%/apple-touch-icon.png"
+        />
+        <link
+            rel="mask-icon"
+            href="%PUBLIC_URL%/safari-pinned-tab.svg"
+            color="#%REACT_APP_THEME_COLOR%"
+        />
+    </head>
+
+    <body>
+        <noscript>
+            Please enable JavaScript to use %REACT_APP_TITLE%.
+        </noscript>
+        <div id="root"></div>
+    </body>
+</html>

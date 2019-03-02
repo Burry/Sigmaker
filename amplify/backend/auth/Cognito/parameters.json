@@ -1,0 +1,95 @@
+{
+    "identityPoolName": "SigmakerIdentityPool",
+    "allowUnauthenticatedIdentities": true,
+    "thirdPartyAuth": false,
+    "lambdaLogPolicy": "Cognito_lambda_log_policy",
+    "openIdLambdaRoleName": "Cognito_openid_lambda_role",
+    "openIdRolePolicy": "Cognito_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "Cognito_openid_lambda_iam_policy",
+    "openIdLogPolicy": "Cognito_openid_lambda_log_policy",
+    "userPoolName": "SigmakerUserPool",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OPTIONAL",
+    "mfaTypes": [
+        "SMS Text Message",
+        "TOTP"
+    ],
+    "roleName": "Cognito_sns-role",
+    "roleExternalId": "Cognito_role_external_id",
+    "policyName": "Cognito-sns-policy",
+    "smsAuthenticationMessage": "Your Sigmaker code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your Sigmaker Code",
+    "emailVerificationMessage": "Your Sigmaker verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers"
+    ],
+    "requiredAttributes": [
+        "family_name",
+        "given_name",
+        "email"
+    ],
+    "userpoolClientName": "Cognito_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientReadAttributes": [
+        "email",
+        "family_name",
+        "given_name",
+        "locale",
+        "phone_number",
+        "preferred_username",
+        "picture",
+        "profile",
+        "updated_at",
+        "website",
+        "email_verified",
+        "phone_number_verified"
+    ],
+    "mfaLambdaRole": "Cognito_totp_lambda_role",
+    "mfaLambdaLogPolicy": "Cognito_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "Cognito_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "Cognito_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "Cognito_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "Cognito_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "Cognito_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": true,
+    "useDefault": "manual",
+    "authSelections": "identityPoolAndUserPool",
+    "resourceName": "Cognito",
+    "userpoolClientWriteAttributes": [
+        "locale",
+        "phone_number",
+        "picture",
+        "profile",
+        "updated_at",
+        "website",
+        "email",
+        "family_name",
+        "given_name"
+    ],
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    }
+}

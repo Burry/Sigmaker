@@ -1,0 +1,19 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "sigmaker-20190301213828-authRole",
+            "UnauthRoleArn": "arn:aws:iam::233801002674:role/sigmaker-20190301213828-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::233801002674:role/sigmaker-20190301213828-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "sigmaker-20190301213828-deployment",
+            "UnauthRoleName": "sigmaker-20190301213828-unauthRole",
+            "StackName": "sigmaker-20190301213828",
+            "StackId": "arn:aws:cloudformation:us-west-2:233801002674:stack/sigmaker-20190301213828/06ef7ea0-3ca5-11e9-9ec5-02759da24116"
+        },
+        "categories": {
+            "auth": {
+                "Cognito": {}
+            }
+        }
+    }
+}
