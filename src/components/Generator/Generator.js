@@ -182,6 +182,8 @@ const Generator = () => {
                                     type="url"
                                     input={inputs.companySite}
                                     onChange={handleChange}
+                                    required={inputs.company.enabled}
+                                    disabled={!inputs.company.enabled}
                                 />
                             </InputSection>
                             <InputSection title="Customize" collapse>
