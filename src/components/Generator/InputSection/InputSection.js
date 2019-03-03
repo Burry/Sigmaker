@@ -34,7 +34,9 @@ const InputSection = ({ title, collapse, children }) => {
                 </small>
             </Card.Header>
             <Collapse in={!collapsed}>
-                <Card.Body>{children}</Card.Body>
+                <Card.Body className="py-0">
+                    {children}
+                </Card.Body>
             </Collapse>
         </Card>
     );

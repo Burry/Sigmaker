@@ -48,7 +48,7 @@ const InfoFormGroup = ({
         .replace(/^./, str => str.toUpperCase());
     const inputProps = { name, input, onChange, required, disabled, ...props };
     return (
-        <Form.Group as={Form.Row} controlId={name}>
+        <Form.Group as={Form.Row} controlId={name} className="my-3">
             {required || disabled ? (
                 <Form.Label column sm={3} lg={4}>
                     <span className="pl-sm-4">{normalizedName}</span>

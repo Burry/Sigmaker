@@ -97,7 +97,11 @@ const Generator = () => {
                         <h1>Settings</h1>
                         <div className="accordion">
                             <InputSection title="Personal Info">
-                                <Form.Group as={Form.Row} controlId="firstName">
+                                <Form.Group
+                                    as={Form.Row}
+                                    controlId="firstName"
+                                    className="my-3"
+                                >
                                     <Form.Label column sm={3} lg={4}>
                                         <span className="pl-sm-4">Name</span>
                                     </Form.Label>
@@ -131,7 +135,7 @@ const Generator = () => {
                                     prepend="US"
                                 />
                             </InputSection>
-                            <InputSection title="Links">
+                            <InputSection title="Personal Links" collapse>
                                 <InfoFormGroup
                                     name="site"
                                     type="url"
@@ -139,7 +143,7 @@ const Generator = () => {
                                     onChange={handleChange}
                                 />
                             </InputSection>
-                            <InputSection title="Image" collapse>
+                            <InputSection title="Image">
                                 <InfoFormGroup
                                     name="image"
                                     input={inputs.image}
@@ -164,7 +168,7 @@ const Generator = () => {
                                     append="px"
                                 />
                             </InputSection>
-                            <InputSection title="Company" collapse>
+                            <InputSection title="Company">
                                 {['role', 'company'].map(name => (
                                     <InfoFormGroup
                                         key={name}
