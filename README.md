@@ -15,9 +15,6 @@
     <a href="https://github.com/Burry/Sigmaker/blob/master/LICENSE" alt="MIT License">
         <img src="https://img.shields.io/github/license/Burry/Sigmaker.svg?color=%234c1" />
     </a>
-    <a href="https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker?ref=badge_shield" alt="FOSSA Status">
-        <img src="https://app.fossa.io/api/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker.svg?type=shield" />
-    </a>
 </h1>
 
 ### [➡️ Use it here](https://sigmaker.app)
