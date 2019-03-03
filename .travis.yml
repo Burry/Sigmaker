@@ -13,6 +13,7 @@ script:
     - yarn build
     - fossa init
     - fossa analyze
-    - yarn test --coverage && codecov
+    - yarn test --coverage
+    - codecov
 after_success:
     - fossa test
