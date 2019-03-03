@@ -9,21 +9,21 @@
     <a href="https://codecov.io/gh/Burry/Sigmaker" target="_blank" alt="Code Coverage">
         <img src="https://codecov.io/gh/Burry/Sigmaker/branch/master/graph/badge.svg" />
     </a>
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FBurry%2FSigmaker/refs/branch/master/f6ba0674cda6c3a4c6fa4e21b8fb1b9dc6e5bd48/browse/dependencies" target="_blank" alt="Dependency Status">
+    <a href="https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker/refs/branch/master/6c59a662142ae9b00acc82d2463165688d861213/browse/dependencies" target="_blank" alt="Dependency Status">
         <img src="https://david-dm.org/Burry/Sigmaker.svg" />
     </a>
     <a href="https://github.com/Burry/Sigmaker/blob/master/LICENSE" alt="MIT License">
         <img src="https://img.shields.io/github/license/Burry/Sigmaker.svg?color=%234c1" />
     </a>
-    <a href="https://app.fossa.io/projects/git%2Bgithub.com%2FBurry%2FSigmaker?ref=badge_shield" alt="FOSSA Status">
-        <img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FBurry%2FSigmaker.svg?type=shield" />
+    <a href="https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker?ref=badge_shield" alt="FOSSA Status">
+        <img src="https://app.fossa.io/api/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker.svg?type=shield" />
     </a>
 </h1>
 
-### [Use it here →](https://sigmaker.app)
+### [➡️ Use it here](https://sigmaker.app)
 
 ### [🛠 Development](docs/Development.md)
 
-### [⚖️ License](https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FEmail-Signature-Builder)
+### [⚖️ License](https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker)
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FBurry%2FSigmaker.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FBurry%2FSigmaker?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker.svg?type=large)](https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker?ref=badge_large)
