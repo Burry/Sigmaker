@@ -1,5 +1,9 @@
 @import '../../variables';
 
+.dialCode {
+    width: min-content !important;
+}
+
 .preview {
     overflow-x: scroll;
 }

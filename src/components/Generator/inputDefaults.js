@@ -26,6 +26,7 @@ export default {
     lastName: inputDefault('Doe', true),
     email: inputDefault('jdoe@protonmail.com', true),
     phone: inputDefault('(555) 555-5555', true),
+    dialCode: inputDefault('US', true, 'US'),
     site: inputDefault('https://jondoe.com', false),
     image: inputDefault('https://jondoe.com/avatar.png', true),
     imageSize: inputDefault(65, true, 65),

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { shape, string, oneOfType, node, arrayOf } from 'prop-types';
 import PhoneNumber from 'awesome-phonenumber';
 import gravatar from 'gravatar';
-
-const phoneUri = value =>
-    new PhoneNumber(value, 'US').getNumber('rfc3966') || `tel:${value}`;
+import dialCodes from '../dialCodes';
 
 const lineHeight = 1.5;
 
@@ -14,6 +12,7 @@ const Signature = ({ inputs }) => {
         lastName,
         email,
         phone,
+        dialCode,
         site,
         salutation,
         image: _image,
@@ -33,6 +32,9 @@ const Signature = ({ inputs }) => {
                     : value;
         return acc;
     }, {});
+
+    const phoneUri = value =>
+        new PhoneNumber(value, dialCode).getNumber('rfc3966') || `tel:${value}`;
 
     const [imageSize, setImageSize] = useState({
         width: maxImageSize,
@@ -223,6 +225,12 @@ const Signature = ({ inputs }) => {
                                                     fontSize: '80%'
                                                 }}
                                             >
+                                                {
+                                                    dialCodes.find(
+                                                        ({ code }) =>
+                                                            code === dialCode
+                                                    ).dialCode
+                                                }{' '}
                                                 {phone}
                                             </Link>
                                         )}

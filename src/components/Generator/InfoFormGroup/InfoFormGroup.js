@@ -14,17 +14,21 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import InfoInput from '../InfoInput';
 
-const AddOn = ({ type, children }) => {
+const AddOn = ({ type, text, children }) => {
     const InputGroupAddon = InputGroup[type];
-    return children ? (
+    if (!children) return null;
+    return text ? (
         <InputGroupAddon>
             <InputGroup.Text>{children}</InputGroup.Text>
         </InputGroupAddon>
-    ) : null;
+    ) : (
+        <InputGroupAddon as={children} />
+    );
 };
 
 AddOn.propTypes = {
     type: string.isRequired,
+    text: oneOfType([string, bool]).isRequired,
     children: oneOfType([node, arrayOf(node)])
 };
 
@@ -40,7 +44,9 @@ const InfoFormGroup = ({
     disabled,
     customInput: CustomInput,
     append,
+    appendText,
     prepend,
+    prependText,
     ...props
 }) => {
     const normalizedName = name
@@ -76,9 +82,13 @@ const InfoFormGroup = ({
                     <CustomInput {...inputProps} />
                 ) : (
                     <InputGroup>
-                        <AddOn type="Prepend">{prepend}</AddOn>
+                        <AddOn type="Prepend" text={prependText}>
+                            {prepend || prependText}
+                        </AddOn>
                         <InfoInput {...inputProps} />
-                        <AddOn type="Append">{append}</AddOn>
+                        <AddOn type="Append" text={appendText}>
+                            {append || appendText}
+                        </AddOn>
                     </InputGroup>
                 )}
             </Col>
@@ -94,7 +104,9 @@ InfoFormGroup.propTypes = {
     disabled: bool,
     customInput: oneOfType([node, arrayOf(node), func]),
     append: oneOfType([node, arrayOf(node), func]),
-    prepend: oneOfType([node, arrayOf(node), func])
+    appendText: oneOfType([node, arrayOf(node), func]),
+    prepend: oneOfType([node, arrayOf(node), func]),
+    prependText: oneOfType([node, arrayOf(node), func])
 };
 
 InfoFormGroup.defaultProps = {
@@ -102,7 +114,9 @@ InfoFormGroup.defaultProps = {
     disabled: false,
     customInput: null,
     append: null,
-    prepend: null
+    appendText: null,
+    prepend: null,
+    prependText: null
 };
 
 export default InfoFormGroup;

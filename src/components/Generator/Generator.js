@@ -8,20 +8,24 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faClipboard } from '@fortawesome/pro-solid-svg-icons';
+import {
+    faGlobe,
+    faCheck,
+    faClipboard
+} from '@fortawesome/pro-solid-svg-icons';
 import InputSection from './InputSection';
 import InfoInput from './InfoInput';
 import InfoFormGroup from './InfoFormGroup';
 import Signature, { signatureHeaderAndDoctype } from './Signature';
 import inputDefaults from './inputDefaults';
+import dialCodes from './dialCodes';
 import './color-picker.scss';
 import styles from './Generator.module.scss';
-
-const phoneNumber = value =>
-    new PhoneNumber(value, 'US').getNumber('national') || value;
 
 const Generator = () => {
     const [copied, setCopied] = useState(false);
@@ -51,6 +55,9 @@ const Generator = () => {
         setInputs(inputReducer(target));
         setCopied(false);
     };
+
+    const phoneNumber = value =>
+        new PhoneNumber(value, inputs.dialCode.value).getNumber('national') || value;
 
     const handleChangePhone = event => {
         const phoneEvent = event;
@@ -132,7 +139,28 @@ const Generator = () => {
                                     type="tel"
                                     input={inputs.phone}
                                     onChange={handleChangePhone}
-                                    prepend="US"
+                                    prepend={() => (
+                                        <InfoInput
+                                            as="select"
+                                            name="dialCode"
+                                            input={inputs.dialCode}
+                                            onChange={handleChange}
+                                            disabled={!inputs.phone.enabled}
+                                            className={classNames(
+                                                styles.dialCode,
+                                                'custom-select',
+                                                'flex-grow-0'
+                                            )}
+                                        >
+                                            {dialCodes.map(
+                                                ({ dialCode, code }) => (
+                                                    <option key={dialCode}>
+                                                        {code}
+                                                    </option>
+                                                )
+                                            )}
+                                        </InfoInput>
+                                    )}
                                 />
                             </InputSection>
                             <InputSection title="Personal Links" collapse>
@@ -156,7 +184,7 @@ const Generator = () => {
                                     onChange={handleChange}
                                     required={inputs.imageSize.enabled}
                                     disabled={!inputs.imageSize.enabled}
-                                    append="px"
+                                    appendText="px"
                                 />
                                 <InfoFormGroup
                                     name="borderRadius"
@@ -165,7 +193,7 @@ const Generator = () => {
                                     onChange={handleChange}
                                     required={inputs.borderRadius.enabled}
                                     disabled={!inputs.borderRadius.enabled}
-                                    append="px"
+                                    appendText="px"
                                 />
                             </InputSection>
                             <InputSection title="Company">
