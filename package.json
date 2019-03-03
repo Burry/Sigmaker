@@ -13,8 +13,10 @@
         "prestart": "amplify push",
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "analyze": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
+        "predeploy": "react-scripts build",
+        "deploy": "cat CNAME > ./build/CNAME && gh-pages -d build",
         "test": "react-scripts test",
+        "analyze": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
         "eject": "react-scripts eject"
     },
     "husky": {
@@ -59,7 +61,6 @@
         "@fortawesome/pro-solid-svg-icons": "^5.7.2",
         "@fortawesome/react-fontawesome": "^0.1.4",
         "awesome-phonenumber": "^2.5.0",
-        "aws-amplify": "^1.1.19",
         "bootstrap": "^4.3.1",
         "classnames": "^2.2.6",
         "gravatar": "^1.8.0",
@@ -79,6 +80,7 @@
         "eslint-plugin-css-modules": "^2.11.0",
         "eslint-plugin-flowtype": "^3.4.2",
         "eslint-plugin-prettier": "^3.0.1",
+        "gh-pages": "^2.0.1",
         "husky": "^1.3.1",
         "prettier": "^1.16.4",
         "prop-types": "^15.7.2",

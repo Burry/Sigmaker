@@ -5,7 +5,6 @@ import Navbar from '../Navbar';
 import Generator from '../Generator';
 import NotFound from '../NotFound';
 import Footer from '../Footer';
-import withAnalytics from '../withAnalytics';
 import './App.scss';
 
 const App = () => (
@@ -25,4 +24,4 @@ const App = () => (
     </BrowserRouter>
 );
 
-export default withAnalytics(App);
+export default App;

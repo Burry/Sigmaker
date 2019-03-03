@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import classNames from 'classnames';
-import { Analytics } from 'aws-amplify';
 import PhoneNumber from 'awesome-phonenumber';
 import { Panel as ColorPicker } from 'rc-color-picker';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -88,7 +87,6 @@ const Generator = () => {
     const handleCopied = event => {
         if (event.preventDefault) event.preventDefault();
         setCopied(true);
-        Analytics.record('copied-signature');
     };
 
     return (
