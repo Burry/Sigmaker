@@ -8,16 +8,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faGlobe,
-    faCheck,
-    faClipboard
-} from '@fortawesome/pro-solid-svg-icons';
+import { faCheck, faClipboard } from '@fortawesome/pro-solid-svg-icons';
 import InputSection from './InputSection';
 import InfoInput from './InfoInput';
 import InfoFormGroup from './InfoFormGroup';
