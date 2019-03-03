@@ -2,4 +2,9 @@
 
 .header {
     cursor: pointer;
+    transition: $transition-base;
+
+    &:hover {
+        color: $primary;
+    }
 }
