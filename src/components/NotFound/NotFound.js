@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerQuestion } from '@fortawesome/pro-solid-svg-icons';
 
 const NotFound = () => (
-    <Container className={classNames('py-5', 'text-center')}>
+    <Container className={classNames('py-5', 'text-center')} role="main">
         <Helmet>
             <title>Not Found</title>
         </Helmet>

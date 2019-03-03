@@ -92,12 +92,15 @@ const Generator = () => {
     };
 
     return (
-        <Container className={classNames('mt-4', 'mb-5')}>
+        <Container className={classNames('mt-3', 'mb-5')} role="main">
             <Form onSubmit={handleCopied}>
                 <Row>
                     <Col lg={6} xl={5}>
-                        <h1>Settings</h1>
-                        <div className="accordion">
+                        <h1 id="settingsHeader">Settings</h1>
+                        <div
+                            className="accordion"
+                            aria-labelledby="settingsHeader"
+                        >
                             <InputSection title="Personal Info">
                                 <Form.Group
                                     as={Form.Row}
@@ -257,10 +260,12 @@ const Generator = () => {
                         xl={7}
                         className={classNames('mt-4', 'mt-lg-0')}
                     >
-                        <h1>Preview</h1>
+                        <h1 id="previewHeader">Preview</h1>
                         <Card
                             body
                             className={classNames(styles.preview, 'mb-4')}
+                            aria-live="polite"
+                            aria-labelledby="previewHeader"
                         >
                             {ConnectedSignature}
                         </Card>
@@ -272,7 +277,9 @@ const Generator = () => {
                                 'justify-content-between'
                             )}
                         >
-                            <h1 className="mb-0">HTML Signature</h1>
+                            <h1 className="mb-0" id="htmlSignatureHeader">
+                                HTML Signature
+                            </h1>
                             <CopyToClipboard
                                 text={signatureString}
                                 onCopy={handleCopied}
@@ -299,6 +306,8 @@ const Generator = () => {
                                 'mb-0',
                                 'pre-scrollable'
                             )}
+                            aria-live="polite"
+                            aria-labelledby="htmlSignatureHeader"
                         >
                             {signatureString}
                         </Card>

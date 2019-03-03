@@ -71,7 +71,7 @@ const InfoFormGroup = ({
                         type="checkbox"
                         name={name}
                         id={`${name}-checkbox`}
-                        aria-label={`Enable ${name}`}
+                        aria-label={`Enable ${normalizedName}`}
                         label={normalizedName}
                         onChange={onChange}
                     />
