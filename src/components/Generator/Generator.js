@@ -144,19 +144,18 @@ const Generator = () => {
                                             input={inputs.dialCode}
                                             onChange={handleChange}
                                             disabled={!inputs.phone.enabled}
+                                            aria-label="Dial code"
                                             className={classNames(
                                                 styles.dialCode,
                                                 'custom-select',
                                                 'flex-grow-0'
                                             )}
                                         >
-                                            {dialCodes.map(
-                                                ({ dialCode, code }) => (
-                                                    <option key={dialCode}>
-                                                        {code}
-                                                    </option>
-                                                )
-                                            )}
+                                            {dialCodes.map(({ code }) => (
+                                                <option key={code}>
+                                                    {code}
+                                                </option>
+                                            ))}
                                         </InfoInput>
                                     )}
                                 />

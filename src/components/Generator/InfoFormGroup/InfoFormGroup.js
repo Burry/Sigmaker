@@ -28,11 +28,12 @@ const AddOn = ({ type, text, children }) => {
 
 AddOn.propTypes = {
     type: string.isRequired,
-    text: oneOfType([string, bool]).isRequired,
-    children: oneOfType([node, arrayOf(node)])
+    text: oneOfType([node, arrayOf(node), func]),
+    children: oneOfType([node, arrayOf(node), func])
 };
 
 AddOn.defaultProps = {
+    text: null,
     children: null
 };
 
