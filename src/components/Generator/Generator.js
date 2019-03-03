@@ -57,7 +57,8 @@ const Generator = () => {
     };
 
     const phoneNumber = value =>
-        new PhoneNumber(value, inputs.dialCode.value).getNumber('national') || value;
+        new PhoneNumber(value, inputs.dialCode.value).getNumber('national') ||
+        value;
 
     const handleChangePhone = event => {
         const phoneEvent = event;
