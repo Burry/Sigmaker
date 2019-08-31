@@ -21,6 +21,8 @@
 
 ### [🛠 Development](docs/Development.md)
 
-### [⚖️ License](https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker)
+### [⚖️ License](LICENSE)
 
-[![FOSSA Status](https://app.fossa.io/api/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker.svg?type=large)](https://app.fossa.io/projects/custom%2B9027%2Fgithub.com%2FBurry%2FSigmaker?ref=badge_large)
+MIT License
+
+Copyright (c) 2019 Grant Burry
