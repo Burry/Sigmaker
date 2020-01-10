@@ -81,6 +81,6 @@
         "stylelint-config-standard": "^18.2.0",
         "stylelint-order": "^2.0.0",
         "stylelint-scss": "^3.5.4",
-        "webpack-bundle-analyzer": "^3.0.4"
+        "webpack-bundle-analyzer": "^3.3.2"
     }
 }
